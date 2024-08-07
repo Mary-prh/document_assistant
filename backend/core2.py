@@ -8,14 +8,14 @@ from pinecone import Pinecone
 from langchain_community.vectorstores import Pinecone as pineconeLangchian
 from langchain import hub
 from langchain.chains.history_aware_retriever import create_history_aware_retriever
-from backend.const import INDEX_NAME, MODEL
+from backend.const import INDEX_NAME, MODEL, INDEX_NAME_PDF
 
 
 def run_llm(query, chat_history):
     embeddings = OpenAIEmbeddings(model=MODEL)
     chat = ChatOpenAI(verbose=True, temperature=0)
     # connect to Pinecone index already set up  without needing to recreate the vector store from scratch
-    vectorstore = pineconeLangchian.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
+    vectorstore = pineconeLangchian.from_existing_index(index_name=INDEX_NAME_PDF, embedding=embeddings)
 
     rephrase_prompt = hub.pull("langchain-ai/chat-langchain-rephrase")
 
